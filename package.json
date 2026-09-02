@@ -1,0 +1,13 @@
+{
+  "name": "nexushub-root",
+  "version": "1.0.0",
+  "description": "NexusHub Collaborative Workspace SaaS Platform",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "dev": "npx concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "start": "npx concurrently \"npm run start --prefix server\" \"npm run dev --prefix client\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
