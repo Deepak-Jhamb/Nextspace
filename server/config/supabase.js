@@ -6,6 +6,7 @@ const supabaseUrl = process.env.SUPABASE_URL || 'https://your-project.supabase.c
 const supabaseKey = process.env.SUPABASE_KEY || 'your_supabase_anon_key';
 
 // Check if credentials are placeholder or valid
+// Supabase JS client requires a proper JWT key (starts with 'eyJ'), not sb_secret_ format
 const isPlaceholder =
   !supabaseUrl ||
   supabaseUrl.includes('your-project') ||

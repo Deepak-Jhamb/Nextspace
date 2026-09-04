@@ -1,10 +1,15 @@
 const http = require('http');
 const express = require('express');
 const dotenv = require('dotenv');
+const path = require('path');
+
+// Load env variables — always resolve to root .env regardless of working directory
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const path = require('path');
+
 const fs = require('fs');
 
 const connectDB = require('./config/db');
@@ -28,8 +33,7 @@ const messageRoutes = require('./routes/messageRoutes');
 const meetingRoutes = require('./routes/meetingRoutes');
 const billingRoutes = require('./routes/billingRoutes');
 
-// Load env variables
-dotenv.config();
+
 
 // Initialize Express app & HTTP Server
 const app = express();
@@ -82,12 +86,21 @@ app.use('/api', billingRoutes);
 
 // Serve local uploaded files fallback when Supabase is in local mode
 app.get('/api/local-files/*', (req, res) => {
-  const relativePath = decodeURIComponent(req.params[0] || req.path.replace('/api/local-files/', ''));
-  const filePath = path.join(__dirname, 'uploads', relativePath);
+  // req.params[0] contains everything after /api/local-files/
+  const rawPath = req.params[0] || '';
+  const relativePath = decodeURIComponent(rawPath);
+  const filePath = path.resolve(__dirname, 'uploads', relativePath);
+
+  // Security: ensure the resolved path is still inside the uploads directory
+  const uploadsDir = path.resolve(__dirname, 'uploads');
+  if (!filePath.startsWith(uploadsDir)) {
+    return res.status(403).json({ success: false, message: 'Forbidden' });
+  }
+
   if (fs.existsSync(filePath)) {
     return res.sendFile(filePath);
   } else {
-    return res.status(404).json({ success: false, message: 'Local file not found' });
+    return res.status(404).json({ success: false, message: 'Local file not found. Check if Supabase is configured correctly.' });
   }
 });
 
