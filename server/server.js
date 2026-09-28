@@ -32,6 +32,7 @@ const channelRoutes = require('./routes/channelRoutes');
 const messageRoutes = require('./routes/messageRoutes');
 const meetingRoutes = require('./routes/meetingRoutes');
 const billingRoutes = require('./routes/billingRoutes');
+const codeRoutes = require('./routes/codeRoutes');
 
 
 
@@ -82,6 +83,7 @@ app.use('/api/workspaces', folderRoutes);
 app.use('/api/workspaces', channelRoutes);
 app.use('/api/workspaces', messageRoutes);
 app.use('/api/workspaces', meetingRoutes);
+app.use('/api/workspaces', codeRoutes);
 app.use('/api', billingRoutes);
 
 // Serve local uploaded files fallback when Supabase is in local mode

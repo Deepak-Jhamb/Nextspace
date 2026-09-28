@@ -17,6 +17,7 @@ import {
   Check,
   PanelLeftClose,
   PanelLeftOpen,
+  Code2,
 } from 'lucide-react';
 
 const Sidebar = ({ collapsed, onToggleCollapse }) => {
@@ -27,6 +28,7 @@ const Sidebar = ({ collapsed, onToggleCollapse }) => {
   const navItems = [
     { label: 'Dashboard', path: '/', icon: LayoutDashboard },
     { label: 'Files & Drive', path: '/files', icon: FolderKanban, badge: 'Drive' },
+    { label: 'Code Workspace', path: '/code', icon: Code2, badge: 'Code' },
     { label: 'Chat & Channels', path: '/chat', icon: MessageSquare, badge: 'Chat' },
     { label: 'Team Members', path: '/members', icon: Users, badge: currentRole },
     { label: 'Meetings & Calls', path: '/meetings', icon: Video, badge: 'Live' },

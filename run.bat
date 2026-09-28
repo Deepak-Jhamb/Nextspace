@@ -1,4 +1,5 @@
 @echo off
+cls
 title NexusHub SaaS Platform Launcher
 echo ========================================================
 echo         NexusHub Collaborative Workspace SaaS          

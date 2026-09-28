@@ -202,6 +202,36 @@ const initSocket = (server) => {
       activeMeetingRooms.delete(meetingId);
     });
 
+    // --- CODE EDITOR EVENTS ---
+    socket.on('code:join', ({ fileId }) => {
+      if (!fileId) return;
+      socket.join(`codefile_${fileId}`);
+    });
+
+    socket.on('code:leave', ({ fileId }) => {
+      if (!fileId) return;
+      socket.leave(`codefile_${fileId}`);
+    });
+
+    socket.on('code:change', ({ fileId, content }) => {
+      if (!fileId) return;
+      socket.to(`codefile_${fileId}`).emit('code:change', {
+        fileId,
+        content,
+        userId: socket.user._id.toString(),
+      });
+    });
+
+    socket.on('code:cursor', ({ fileId, position }) => {
+      if (!fileId) return;
+      socket.to(`codefile_${fileId}`).emit('code:cursor', {
+        fileId,
+        position,
+        userId: socket.user._id.toString(),
+        userName: socket.user.name,
+      });
+    });
+
     // --- DISCONNECT HANDLER ---
     socket.on('disconnect', () => {
       console.log(`[Socket Disconnected]: ${socket.id}`);

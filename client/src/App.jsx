@@ -24,6 +24,7 @@ import Members from './pages/Members';
 import Meetings from './pages/Meetings';
 import Billing from './pages/Billing';
 import Settings from './pages/Settings';
+import CodeWorkspace from './pages/CodeWorkspace';
 
 const App = () => {
   return (
@@ -53,6 +54,7 @@ const App = () => {
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/files" element={<Files />} />
                 <Route path="/chat" element={<Chat />} />
+                <Route path="/code" element={<CodeWorkspace />} />
                 <Route path="/members" element={<Members />} />
                 <Route path="/meetings" element={<Meetings />} />
                 <Route path="/billing" element={<Billing />} />
